@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Web App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
+    <link rel="stylesheet" type="text/css" href="dropdown.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+      var maxHeight = 400;
+
+      $(function(){
+
+          $(".dropdown > li").hover(function() {
+
+               var $container = $(this),
+                   $list = $container.find("ul"),
+                   $anchor = $container.find("a"),
+                   height = $list.height() * 1.1,       // make sure there is enough room at the bottom
+                   multiplier = height / maxHeight;     // needs to move faster if list is taller
+
+              // need to save height here so it can revert on mouseout
+              $container.data("origHeight", $container.height());
+
+              // so it can retain it's rollover color all the while the dropdown is open
+              $anchor.addClass("hover");
+
+              // make sure dropdown appears directly below parent list item
+              $list
+                  .show()
+                  .css({
+                      paddingTop: $container.data("origHeight")
+                  });
+
+              // don't do any animation if list shorter than max
+              if (multiplier > 1) {
+                  $container
+                      .css({
+                          height: maxHeight,
+                          overflow: "hidden"
+                      })
+                      .mousemove(function(e) {
+                          var offset = $container.offset();
+                          var relativeY = ((e.pageY - offset.top) * multiplier) - ($container.data("origHeight") * multiplier);
+                          if (relativeY > $container.data("origHeight")) {
+                              $list.css("top", -relativeY + $container.data("origHeight"));
+                          };
+                      });
+              }
+
+          }, function() {
+
+              var $el = $(this);
+
+              // put things back to normal
+              $el
+                  .height($(this).data("origHeight"))
+                  .find("ul")
+                  .css({ top: 0 })
+                  .hide()
+                  .end()
+                  .find("a")
+                  .removeClass("hover");
+          });
+      });
+    </script>
+  </head>
+
+    <body id = "top">
+      <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.html">SEATTLE ADS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="postAd.html">POST ADS</a></li>
+                <li class="active"><a href="findAd.html">FIND ADS</a></li>
+                <li><a href="register.html">SIGN IN/ SIGN UP</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="profile.html" target="view_window">Profile</a></li>
+                    <li><a href="index.html#contact">Contact Website</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+  <h1>Select what you want:</h1>
+  <nav id="dropnav">
+  <ul class="dropdown">
+    <li class="drop"><a href="#">JOB</a>
+      <ul class="sub_menu">
+        <li><a href="#">Accounting</a></li>
+        <li><a href="#">Architecture</a></li>
+        <li><a href="#">Art</a></li>
+        <li><a href="#">Biotech</a></li>
+        <li><a href="#">Business</a></li>
+        <li><a href="#">Chemistry</a></li>
+        <li><a href="#">Computer engineering</a></li>
+        <li><a href="#">Education</a></li>
+        <li><a href="#">Food</a></li>
+        <li><a href="#">Human resource</a></li>
+        <li><a href="#">Machiney</a></li>
+				<li><a href="#">Marketing</a></li>
+				<li><a href="#">Sale</a></li>
+      </ul>
+  	</li>
+  	<li class="drop"><a href="#">House</a>
+  		<ul class="sub_menu">
+  			<li><a href="#">Apartment for rent</a></li>
+        <li><a href="#">Apartment for sale</a></li>
+				<li><a href="#">House for rent</a></li>
+				<li><a href="#">House for sale</a></li>
+				<li><a href="#">Clean Service</a></li>
+				<li><a href="#">Repair service</a></li>
+  		</ul>
+  	</li>
+  	<li class="drop"><a href="#">Electronics</a>
+  		<ul class="sub_menu">
+  			<li><a href="#">New iphone for sale</a></li>
+				<li><a href="#">Used iphone for sale</a></li>
+        <li><a href="#">New ipad for sale</a></li>
+				<li><a href="#">Used ipad for sale</a></li>
+        <li><a href="#">New computer for sale</a></li>
+				<li><a href="#">Used computer for sale</a></li>
+        <li><a href="#">Clean Service</a></li>
+        <li><a href="#">Repair service</a></li>
+  		</ul>
+  	</li>
+    <li class="drop"><a href="#">Merchandise</a>
+  		<ul class="sub_menu">
+  			<li><a href="#">Clothes</a></li>
+				<li><a href="#">Shoes</a></li>
+				<li><a href="#">Foods</a></li>
+				<li><a href="#">Drinks</a></li>
+				<li><a href="#">Groceries</a></li>
+  		</ul>
+  	</li>
+    <li class="drop"><a href="#">Restaurant</a>
+  		<ul class="sub_menu">
+  			<li><a href="#">American food</a></li>
+        <li><a href="#">Mexican food</a></li>
+				<li><a href="#">Chinese food</a></li>
+				<li><a href="#">Tai food</a></li>
+				<li><a href="#">Koran food</a></li>
+  		</ul>
+  	</li>
+    <li class="drop"><a href="#">Resorts</a>
+  		<ul class="sub_menu">
+  			<li><a href="#">Space Needle</a></li>
+        <li><a href="#">University of Washington</a></li>
+				<li><a href="#">Ride the Duck</a></li>
+  		</ul>
+  	</li>
+  </ul>
+  </nav>
+</body>
+</html>
