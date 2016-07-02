@@ -139,7 +139,7 @@ function signup() {
       signUpFunction(xmlhttp);
     }
   };
-  xmlhttp.open("POST", "http://localhost:8080/MySQLService/create-new-account?password="+ password + "&email="+ email + "&lastname="+ lastname +"&firstname=" + firstname, true);
+  xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/create-new-account?password="+ password + "&email="+ email + "&lastname="+ lastname +"&firstname=" + firstname, true);
   xmlhttp.send();
 }
 function signUpFunction(xmlhttp) {
@@ -166,7 +166,7 @@ function login() {
       logInFunction(xmlhttp);
     }
   };
-  xmlhttp.open("POST", "http://localhost:8080/MySQLService/create-new-account?password="+ password + "&email="+ email, true);
+  xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/create-new-account?password="+ password + "&email="+ email, true);
   xmlhttp.send();
 }
 function logInFunction(xmlhttp) {
