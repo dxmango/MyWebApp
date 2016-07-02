@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Web App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" type="text/css" href="postAd.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/prototype/1.7.1/prototype.js'></script>
+  </head>
+
+  <body id = "top">
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">SEATTLE ADS</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="index.html">HOME</a></li>
+              <li class="active"><a href="postAd.html">POST ADS</a></li>
+              <li><a href="findAd.html">FIND ADS</a></li>
+              <li><a href="register.html">SIGN IN/ SIGN UP</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="profile.html" target="view_window">Profile</a></li>
+                  <li><a href="index.html#contact">Contact Website</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div id="wrapper">
+           <form>
+               <fieldset>
+                   <legend>Fill out this chart to post your ads: </legend>
+                   <div class="chart1">
+                       <input id="PosterEmail" class="chart1" type="text" placeholder="Poster's Email"/>
+                   </div>
+                   <div class="chart1">
+                       <input id="Password" class="chart1" type="password" placeholder="Password"/>
+                   </div>
+                   <div class="chart1">
+                       <input id="ContactEmail" class="chart1" type="text" placeholder="Contact Email"/>
+                   </div>
+                   <div class="chart1">
+                       <input id="PhoneNumber" class="chart1" type="text" placeholder="Phone Number"/>
+                   </div>
+                   <div class="chart1">
+                       <h4>Contents</h4>
+                       <textarea id="Content" class="chart1" type="text" placeholder="Message"></textarea>
+                   </div>
+                   <h4>Select tags(only one)</h4>
+                   <div id = "kind">
+                     <span class="custom-dropdown">
+                         <select id="jobs">
+                            <option value="jobs" disabled selected>Jobs</option>
+                             <option value="Accounting">Accounting</option>
+                             <option value="Architecture">Architecture</option>
+                             <option value="Art">Art</option>
+                             <option value="Biotech">Biotech</option>
+                             <option value="BUSINESS">Business</option>
+                             <option value="Chemistry">Chemistry</option>
+                             <option value="Computer Engineering">Computer Engineering</option>
+                             <option value="Education">Education</option>
+                             <option value="Food">Food</option>
+                             <option value="Human Resource">Human Resource</option>
+                             <option value="Machinery">Machinery</option>
+                             <option value="Sale">Sale</option>
+                         </select>
+                     </span>
+
+                     <span class="custom-dropdown">
+                         <select id="house">
+                             <option value="house" disabled selected>House</option>
+                             <option value="Apartment for rent">Apartment for rent</option>
+                             <option value="Apartment for sale">Apartment for sale</option>
+                             <option value="House for rent">House for rent</option>
+                             <option value="House for sale">House for sale</option>
+                             <option value="Clean Service">Clean Service</option>
+                             <option value="Repair Service">Repair service</option>
+                         </select>
+                     </span>
+
+                     <span class="custom-dropdown">
+                         <select id="electronics">
+                             <option value="electronics" disabled selected>Electronics</option>
+                             <option>New iphone for sale</option>
+                             <option>Used iphone for sale</option>
+                             <option>New ipad for sale</option>
+                             <option>Used ipad for sale</option>
+                             <option>New computer for sale</option>
+                             <option>Used computer for sale</option>
+                             <option>Clean Service</option>
+                             <option>Repair service</option>
+                         </select>
+                     </span>
+
+                  </br>
+                    <span class="custom-dropdown">
+                        <select id="merchandise">
+                           <option value="merchandise" disabled selected>Merchandise</option>
+                            <option>Clothes</option>
+                            <option>Shoes</option>
+                            <option>Foods</option>
+                            <option>Drinks</option>
+                            <option>Groceries</option>
+
+                        </select>
+                    </span>
+
+                    <span class="custom-dropdown">
+                        <select id="restuarant">
+                            <option value="restuarant" disabled selected>Restuarant</option>
+                            <option>American food</option>
+                            <option>Mexican food</option>
+                            <option>Chinese food</option>
+                            <option>Tai food</option>
+                            <option>Koran food</option>
+                        </select>
+                    </span>
+
+                    <span class="custom-dropdown">
+                        <select id="resorts">
+                            <option value="resorts" disabled selected>Resorts</option>
+                            <option>Space Needle</option>
+                            <option>University of Washington</option>
+                            <option>Ride the Duck</option>
+                        </select>
+                    </span>
+                  </div>
+                   <button type="button" class="button" onclick="send()"/>Send</button>
+               </fieldset>
+           </form>
+       </div>
+<p id="p">oo</p>
+<script>
+
+       function send() {
+
+         var xmlhttp = new XMLHttpRequest();
+         var jobs = document.getElementById("jobs");
+         var house = document.getElementById("house");
+         var electronics = document.getElementById("electronics");
+         var merchandise = document.getElementById("merchandise");
+         var restuarant = document.getElementById("restuarant");
+         var resorts = document.getElementById("resorts");
+
+         var PosterEmail = document.getElementById("PosterEmail").value;
+         var content = document.getElementById("Content").value;
+         var ContactEmail = document.getElementById("ContactEmail").value;
+         var PhoneNumber = document.getElementById("PhoneNumber").value;
+         var category;
+         document.getElementById("p").innerHTML = "qqqhhhhhhhhhhhhhhhhhj";
+         if(jobs[jobs.selectedIndex].value != "jobs"){
+            category = "Jobs-" + jobs[jobs.selectedIndex].value;
+         }else if(house[house.selectedIndex].value != "house"){
+            category = "House-" + house[house.selectedIndex].value;
+         }else if(electronics[electronics.selectedIndex].value != "electronics"){
+            category = "Electronics-" + electronics[electronics.selectedIndex].value;
+         }else if(merchandise[merchandise.selectedIndex].value != "merchandise"){
+            category = "Merchandise-" + merchandise[merchandise.selectedIndex].value;
+         }else if(restuarant[restuarant.selectedIndex].value != "restuarant"){
+            category = "Restuarant-" + restuarant[restuarant.selectedIndex].value;
+         }else if(resorts[resorts.selectedIndex].value != "resorts"){
+            category = "Resorts-" + resorts[resorts.selectedIndex].value;
+         }
+         xmlhttp.onreadystatechange = function() {
+           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+             signUpFunction(xmlhttp);
+           }
+         };
+         xmlhttp.open("POST", "http://localhost:8080/MySQLService//PostAds?PostEmail="+PosterEmail+"&Category="+category+ "&Contents=" + content+ "&ContactEmail=" + ContactEmail + "&ContactCell="+ PhoneNumber, true);
+         xmlhttp.send();
+       }
+       function signUpFunction(xmlhttp) {
+           var myArr = JSON.parse(xmlhttp.responseText);
+           if(myArr.succeed){
+               document.getElementById("p").innerHTML = "You have successfully posted your ad!";
+           }else{
+               document.getElementById("p").innerHTML = "Post failed. Try again.";
+           }
+       }
+
+</script>
+    </body>
+
+</html>

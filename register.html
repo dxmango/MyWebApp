@@ -55,7 +55,7 @@
 
     <div class="tab-content">
       <div id="signup">
-        <h1 id ="signupRemind">Sign Up for Free</h1>
+        <h1 id = "signupRemind">Sign Up for Free</h1>
 
         <form action="#login">
 
@@ -96,9 +96,9 @@
       </div>
 
       <div id="login">
-        <h1>Welcome Back!</h1>
+        <h1 id= "loginWord">Welcome Back!</h1>
 
-        <form action="/" method="post">
+        <form>
 
           <div class="field-wrap">
           <label>
@@ -139,7 +139,7 @@ function signup() {
       signUpFunction(xmlhttp);
     }
   };
-  xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/create-new-account?password="+ password + "&email="+ email + "&lastname="+ lastname +"&firstname=" + firstname, true);
+  xmlhttp.open("POST", "http://localhost:8080/MySQLService/create-new-account?password="+ password + "&email="+ email + "&lastname="+ lastname +"&firstname=" + firstname, true);
   xmlhttp.send();
 }
 function signUpFunction(xmlhttp) {
@@ -155,8 +155,6 @@ function signUpFunction(xmlhttp) {
     }
 }
 
-
-
 function login() {
   var xmlhttp = new XMLHttpRequest();
   var email = document.getElementById("loginEmail").value;
@@ -171,7 +169,6 @@ function login() {
   xmlhttp.send();
 }
 function logInFunction(xmlhttp) {
-
     var myArr = JSON.parse(xmlhttp.responseText);
     if(myArr.succeed){
     document.getElementById("loginWord").innerHTML = "You have successfully loged in!";
