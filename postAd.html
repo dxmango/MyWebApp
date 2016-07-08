@@ -50,20 +50,17 @@
                <fieldset>
                    <legend>Fill out this chart to post your ads: </legend>
                    <div class="chart1">
-                       <input id="PosterEmail" class="chart1" type="text" placeholder="Poster's Email"/>
+                       <input id="PosterEmail" class="chart1" type="text" required placeholder="Poster's Email"/>
                    </div>
                    <div class="chart1">
-                       <input id="Password" class="chart1" type="password" placeholder="Password"/>
+                       <input id="ContactEmail" class="chart1" type="text" required placeholder="Contact Email"/>
                    </div>
                    <div class="chart1">
-                       <input id="ContactEmail" class="chart1" type="text" placeholder="Contact Email"/>
-                   </div>
-                   <div class="chart1">
-                       <input id="PhoneNumber" class="chart1" type="text" placeholder="Phone Number"/>
+                       <input id="PhoneNumber" class="chart1" type="text" required placeholder="Phone Number"/>
                    </div>
                    <div class="chart1">
                        <h4>Contents</h4>
-                       <textarea id="Content" class="chart1" type="text" placeholder="Message"></textarea>
+                       <textarea id="Content" class="chart1" type="text" required placeholder="Message"></textarea>
                    </div>
                    <h4>Select tags(only one)</h4>
                    <div id = "kind">
@@ -120,8 +117,7 @@
                             <option>Foods</option>
                             <option>Drinks</option>
                             <option>Groceries</option>
-
-                        </select>
+                      </select>
                     </span>
 
                     <span class="custom-dropdown">
@@ -148,7 +144,7 @@
                </fieldset>
            </form>
        </div>
-<p id="p">oo</p>
+<p id="p"></p>
 <script>
 
        function send() {
@@ -166,7 +162,6 @@
          var ContactEmail = document.getElementById("ContactEmail").value;
          var PhoneNumber = document.getElementById("PhoneNumber").value;
          var category;
-         document.getElementById("p").innerHTML = "qqqhhhhhhhhhhhhhhhhhj";
          if(jobs[jobs.selectedIndex].value != "jobs"){
             category = "Jobs-" + jobs[jobs.selectedIndex].value;
          }else if(house[house.selectedIndex].value != "house"){
@@ -191,7 +186,12 @@
        function signUpFunction(xmlhttp) {
            var myArr = JSON.parse(xmlhttp.responseText);
            if(myArr.succeed){
-               document.getElementById("p").innerHTML = "You have successfully posted your ad!";
+             document.getElementById("p").innerHTML = "You have successfully posted your ad!";
+             document.getElementById("PostEmail").value = "";
+             document.getElementById("ContactEmail").value = "";
+             document.getElementById("PhoneNumber").value = "";
+             document.getElementById("Content").value  = "";
+
            }else{
                document.getElementById("p").innerHTML = "Post failed. Try again.";
            }

@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <link rel="stylesheet" type="text/css" href="dropdown.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
-  <body id = "top">
+  <body id = "top" onload="displayProfile('xdu247@gmail.com')">
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -43,14 +44,69 @@
       </nav>
     </header>
 
-    <div id = "totop" class="container-fluid text-center">
-      <a href="#top" title="To Top">
-      <span class="glyphicon glyphicon-chevron-up"></span>
-      </a>
-    </div>
-    <footer class="container-fluid bg-2 text-center">
-      <p>Web App Made By <a class = "foot" href="www.xinducrystal.html" title="Visit Me"><em>Xin Du</em></a></p>
-    </footer>
-    </body>
+    <div id="info" class="container">
+    <h2>Your information:</h2>
+    <p id="table1"></p>
 
+    </div>
+    <div id="post" class="container">
+    <h2>What you have posted:</h2>
+    <p id="table2"></p>
+    <p id="p"></p>
+    </div>
+
+    <script>
+    function displayProfile(PostEmail) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            myFunction(xmlhttp, PostEmail);
+          }
+        };
+        xmlhttp.open("POST", "http://localhost:8080/MySQLService/Profile?PostEmail="+ PostEmail, true);
+        xmlhttp.send();
+    }
+
+    function myFunction(xmlhttp, PostEmail) {
+        var myArr = JSON.parse(xmlhttp.responseText);
+        if(myArr.succeed){
+            var table1 = "<table><tr><th width='25%'>Email</th><th width='25%'>First Name</th><th width='25%'>Last Name</th><th width='25%'>Password</th></tr>";
+                table1 += "<tr><td>"+myArr.information.userDataModel.email+"</td>"+
+                "<td>"+myArr.information.userDataModel.firstName+"</td>"+
+                "<td>"+myArr.information.userDataModel.lastName+"</td>"+
+                "<td><form method='link' action='changePassword.html'><button type='submit' class='btn btn-primary btn-sm'>Change Password</button></form></td></tr>";
+            table1 += "</table>";
+            document.getElementById("table1").innerHTML = table1;
+            var table2 = "<table><tr><th width='15%'>Post User</th><th width='14%'>Category</th><th width='30%'>Contents</th><th width='15%'>Contact Email</th><th width='10%'>Contact Cell</th><th width='8%'>Post Date</th><th width='8%'>Operation</th></tr>";
+                  for(var i = 0; i < Object.keys(myArr.information.adsModel).length;i++){
+                      table2 += "<tr><td>"+myArr.information.adsModel[i].postEmail+"</td>"+
+                      "<td>"+myArr.information.adsModel[i].category+"</td>"+
+                      "<td>"+myArr.information.adsModel[i].contents+"</td>"+
+                      "<td>"+myArr.information.adsModel[i].contactEmail+"</td>"+
+                      "<td>"+myArr.information.adsModel[i].contactCell+"</td>"+
+                      "<td>"+myArr.information.adsModel[i].postDate+"</td>"+
+                      "<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteAd(PostEmail,"+ myArr.information.adsModel[i].postID+")'/>delete</button></td></tr>";
+                  }
+                  table2 += "</table>";
+                  document.getElementById("table2").innerHTML = table2;
+
+        }else{
+            document.getElementById("p").innerHTML = "No records";
+        }
+
+        function deleteAd(PostEmail,PostID) {
+          document.getElementById("p").innerHTML = "lalalalalla";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                myFunction(xmlhttp);
+              }
+            };
+            xmlhttp.open("POST", "http://localhost:8080/MySQLService/deleteAd?PostEmail="+ PostEmail +"&PostID="+ PostID, true);
+            xmlhttp.send();
+        }
+    }
+
+    </script>
+    </body>
     </html>

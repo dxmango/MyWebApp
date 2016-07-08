@@ -47,10 +47,9 @@
   </header>
 
   <div class="form">
-
     <ul class="tab-group">
-      <li class="tab active"><a href="#signup">Sign Up</a></li>
-      <li id="logintab" class="tab"><a href="#login">Log In</a></li>
+      <li class="tab active"><a href="#signup" onclick="signUpButton()">Sign Up</a></li>
+      <li id="logintab" class="tab"><a href="#login" onclick="logInButton()">Log In</a></li>
     </ul>
 
     <div class="tab-content">
@@ -127,7 +126,12 @@
 
 
 <script>
-
+function signUpButton(){
+  document.getElementById("signupRemind").innerHTML = "Sign Up for Free";
+}
+function logInButton(){
+  document.getElementById("loginWord").innerHTML = "Welcome Back!";
+}
 function signup() {
   var xmlhttp = new XMLHttpRequest();
   var email = document.getElementById("email").value;
