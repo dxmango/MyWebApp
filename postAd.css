@@ -1,11 +1,12 @@
-#wrapper {
-        width:800px;
-        margin:100px auto 10px auto;
-        font-family:Verdana, sans-serif;
+    #wrapper {
+            width:800px;
+            margin:100px auto 10px auto;
+            font-family:Verdana, sans-serif;
+        }
+    #kind{
+      margin-bottom: 20px;
     }
-#kind{
-  margin-bottom: 20px;
-}
+
     legend {
         width:450px;
         color:#0481b1;

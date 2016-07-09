@@ -98,6 +98,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="profile.html" target="view_window">Profile</a></li>
                     <li><a href="index.html#contact">Contact Website</a></li>
+                    <li><a href="index.html" onclick="eraseCookie('username')">Log out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -190,7 +191,8 @@ function findAds(Table, Category) {
         myFunction(xmlhttp);
       }
     };
-    xmlhttp.open("POST", "http://localhost:8080/MySQLService/FindAds?Table="+ Table + "&Category="+ Category, true);
+    //xmlhttp.open("POST", "http://localhost:8080/MySQLService/FindAds?Table="+ Table + "&Category="+ Category, true);
+    xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/FindAds?Table="+ Table + "&Category="+ Category, true);
     xmlhttp.send();
 }
 
@@ -213,6 +215,9 @@ function myFunction(xmlhttp) {
     }else{
         document.getElementById("p").innerHTML = "No records, please change your selection.";
     }
+}
+function eraseCookie(name) {
+  document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 }
 </script>
 

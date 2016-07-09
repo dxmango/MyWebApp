@@ -12,7 +12,7 @@
     <script src='http://ajax.googleapis.com/ajax/libs/prototype/1.7.1/prototype.js'></script>
   </head>
 
-  <body id = "top">
+  <body id = "top" onload="checkCookies()">
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -37,6 +37,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="profile.html" target="view_window">Profile</a></li>
                   <li><a href="index.html#contact">Contact Website</a></li>
+                  <li><a href="index.html" onclick="eraseCookie('username')">Log out</a></li>
                 </ul>
               </li>
             </ul>
@@ -48,10 +49,7 @@
     <div id="wrapper">
            <form>
                <fieldset>
-                   <legend>Fill out this chart to post your ads: </legend>
-                   <div class="chart1">
-                       <input id="PosterEmail" class="chart1" type="text" required placeholder="Poster's Email"/>
-                   </div>
+                   <legend id="note">Fill out this chart to post your ads: </legend>
                    <div class="chart1">
                        <input id="ContactEmail" class="chart1" type="text" required placeholder="Contact Email"/>
                    </div>
@@ -145,10 +143,10 @@
            </form>
        </div>
 <p id="p"></p>
+
 <script>
 
        function send() {
-
          var xmlhttp = new XMLHttpRequest();
          var jobs = document.getElementById("jobs");
          var house = document.getElementById("house");
@@ -156,8 +154,7 @@
          var merchandise = document.getElementById("merchandise");
          var restuarant = document.getElementById("restuarant");
          var resorts = document.getElementById("resorts");
-
-         var PosterEmail = document.getElementById("PosterEmail").value;
+         var PosterEmail = getCookie("username");
          var content = document.getElementById("Content").value;
          var ContactEmail = document.getElementById("ContactEmail").value;
          var PhoneNumber = document.getElementById("PhoneNumber").value;
@@ -180,7 +177,8 @@
              signUpFunction(xmlhttp);
            }
          };
-         xmlhttp.open("POST", "http://localhost:8080/MySQLService//PostAds?PostEmail="+PosterEmail+"&Category="+category+ "&Contents=" + content+ "&ContactEmail=" + ContactEmail + "&ContactCell="+ PhoneNumber, true);
+         //xmlhttp.open("POST", "http://localhost:8080/MySQLService//PostAds?PostEmail="+PosterEmail+"&Category="+category+ "&Contents=" + content+ "&ContactEmail=" + ContactEmail + "&ContactCell="+ PhoneNumber, true);
+         xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService//PostAds?PostEmail="+PosterEmail+"&Category="+category+ "&Contents=" + content+ "&ContactEmail=" + ContactEmail + "&ContactCell="+ PhoneNumber, true);
          xmlhttp.send();
        }
        function signUpFunction(xmlhttp) {
@@ -196,8 +194,32 @@
                document.getElementById("p").innerHTML = "Post failed. Try again.";
            }
        }
+       function getCookie(cname) {
+           var name = cname + "=";
+           var ca = document.cookie.split(';');
+           for(var i=0; i<ca.length; i++) {
+               var c = ca[i];
+               while (c.charAt(0)==' ') {
+                   c = c.substring(1);
+               }
+               if (c.indexOf(name) == 0) {
+                   return c.substring(name.length, c.length);
+               }
+           }
+           return "";
+       }
+       function eraseCookie(name) {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+       }
+       function checkCookies(){
+         var user=getCookie("username");
+         if (user == "") {
+           var str = "Please sign up/log in first before posting";
+           var result = str.fontcolor("#ff3300");
+           document.getElementById("note").innerHTML = result;
+         }
+       }
 
-</script>
+      </script>
     </body>
-
 </html>

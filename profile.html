@@ -11,7 +11,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
-  <body id = "top" onload="displayProfile('xdu247@gmail.com')">
+  <body id = "top" onload="checkCookies()">
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -36,6 +36,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="profile.html" target="view_window">Profile</a></li>
                   <li><a href="index.html#contact">Contact Website</a></li>
+                  <li><a href="index.html" onclick="eraseCookie('username')">Log out</a></li>
                 </ul>
               </li>
             </ul>
@@ -44,26 +45,28 @@
       </nav>
     </header>
 
-    <div id="info" class="container">
-    <h2>Your information:</h2>
-    <p id="table1"></p>
+      <div id="info" class="container">
+        <h3 id="note"></h3>
+        <h2>Your information:</h2>
+        <p id="table1"></p>
+      </div>
 
-    </div>
-    <div id="post" class="container">
-    <h2>What you have posted:</h2>
-    <p id="table2"></p>
-    <p id="p"></p>
-    </div>
-
+      <div id="post" class="container">
+        <h2>What you have posted:</h2>
+        <p id="table2"></p>
+      </div>
+      <h4 id="p"></h4>
     <script>
-    function displayProfile(PostEmail) {
+    function displayProfile() {
+      var PostEmail = getCookie("username");
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             myFunction(xmlhttp, PostEmail);
           }
         };
-        xmlhttp.open("POST", "http://localhost:8080/MySQLService/Profile?PostEmail="+ PostEmail, true);
+        //xmlhttp.open("POST", "http://localhost:8080/MySQLService/Profile?PostEmail="+ PostEmail, true);
+        xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/Profile?PostEmail="+ PostEmail, true);
         xmlhttp.send();
     }
 
@@ -79,13 +82,15 @@
             document.getElementById("table1").innerHTML = table1;
             var table2 = "<table><tr><th width='15%'>Post User</th><th width='14%'>Category</th><th width='30%'>Contents</th><th width='15%'>Contact Email</th><th width='10%'>Contact Cell</th><th width='8%'>Post Date</th><th width='8%'>Operation</th></tr>";
                   for(var i = 0; i < Object.keys(myArr.information.adsModel).length;i++){
+                      var postID=myArr.information.adsModel[i].postID;
+                      var Table=myArr.information.adsModel[i].table;
                       table2 += "<tr><td>"+myArr.information.adsModel[i].postEmail+"</td>"+
                       "<td>"+myArr.information.adsModel[i].category+"</td>"+
                       "<td>"+myArr.information.adsModel[i].contents+"</td>"+
                       "<td>"+myArr.information.adsModel[i].contactEmail+"</td>"+
                       "<td>"+myArr.information.adsModel[i].contactCell+"</td>"+
                       "<td>"+myArr.information.adsModel[i].postDate+"</td>"+
-                      "<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteAd(PostEmail,"+ myArr.information.adsModel[i].postID+")'/>delete</button></td></tr>";
+                      "<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteAds(&quot;"+postID+"&quot;,&quot;"+Table+"&quot;)'/>delete</button></td></tr>";
                   }
                   table2 += "</table>";
                   document.getElementById("table2").innerHTML = table2;
@@ -93,20 +98,55 @@
         }else{
             document.getElementById("p").innerHTML = "No records";
         }
-
-        function deleteAd(PostEmail,PostID) {
-          document.getElementById("p").innerHTML = "lalalalalla";
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                myFunction(xmlhttp);
-              }
-            };
-            xmlhttp.open("POST", "http://localhost:8080/MySQLService/deleteAd?PostEmail="+ PostEmail +"&PostID="+ PostID, true);
-            xmlhttp.send();
-        }
+    }
+    function deleteAds(PostID,Table) {
+      var PostEmail = getCookie("username");
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            deleteAdsFunction(xmlhttp);
+          }
+        };
+        //xmlhttp.open("POST", "http://localhost:8080/MySQLService/DeleteAd?PostID="+ PostID+"&Table=" + Table, true);
+        xmlhttp.open("POST", "http://www.xinducrystal.com:8080/MySQLService/DeleteAd?PostID="+ PostID+"&Table=" + Table, true);
+        xmlhttp.send();
+    }
+    function deleteAdsFunction(xmlhttp) {
+      var myArr = JSON.parse(xmlhttp.responseText);
+      if(myArr.succeed){
+          location.reload();
+      }else{
+          document.getElementById("p").innerHTML = "no ok";
+      }
     }
 
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function eraseCookie(name) {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    }
+    function checkCookies(){
+      var user=getCookie("username");
+      if (user != "") {
+          displayProfile();
+      } else {
+        var str = "Please sign up/log in first";
+        var result = str.fontcolor("#ff3300");
+        document.getElementById("note").innerHTML = result;
+       }
+    }
     </script>
     </body>
     </html>

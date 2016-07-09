@@ -35,6 +35,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="profile.html" target="view_window">Profile</a></li>
                   <li><a href="index.html#contact">Contact Website</a></li>
+                  <li><a href="index.html" onclick="eraseCookie('username')">Log out</a></li>
                 </ul>
               </li>
             </ul>
@@ -187,8 +188,12 @@
       </a>
     </div>
     <footer class="container-fluid bg-2 text-center">
-      <p>Web App Made By <a class = "foot" href="www.xinducrystal.html" title="Visit Me"><em>Xin Du</em></a></p>
+      <p>Web App Made By <a class = "foot" href="http://www.xinducrystal.com" title="Visit Me"><em>Xin Du</em></a></p>
     </footer>
+    <script>
+      function eraseCookie(name) {
+      	document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      }
+    </script>
     </body>
-
     </html>
